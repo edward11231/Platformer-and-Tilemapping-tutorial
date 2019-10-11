@@ -231,7 +231,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 551585717}
   m_Layer: 0
   m_Name: Grid
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2128,8 +2128,8 @@ GameObject:
   - component: {fileID: 2092186267}
   - component: {fileID: 2092186266}
   - component: {fileID: 2092186265}
-  - component: {fileID: 2092186264}
   - component: {fileID: 2092186268}
+  - component: {fileID: 2092186264}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2149,7 +2149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ccb9a42aa440114d99be0e074dc8e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 15
   score: {fileID: 1283019288}
 --- !u!50 &2092186265
 Rigidbody2D:

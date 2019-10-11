@@ -23,9 +23,14 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float hozMovement = Input.GetAxis("Horizontal");
+        float hozMovement = Input.GetAxis("Horizontal") * speed;
         float vertMovement = Input.GetAxis("Vertical");
-        rd2d.AddForce(new Vector2(hozMovement * speed, vertMovement * speed));
+        rd2d.AddForce(new Vector2(hozMovement, vertMovement));
+
+
+    }
+    private void Update()
+    {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -50,7 +55,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.W))
             {
-                rd2d.AddForce(new Vector2(0, 3), ForceMode2D.Impulse);
+                rd2d.AddForce(new Vector2(0, 4), ForceMode2D.Impulse);
             }
         }
     }
