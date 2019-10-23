@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
     public GameObject player;
-    public float cameraDown;
+    //public float cameraDown;
     // Start is called before the first frame update
     void Start()
     {

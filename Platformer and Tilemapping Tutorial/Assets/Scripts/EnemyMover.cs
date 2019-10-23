@@ -27,6 +27,6 @@ public class EnemyMover : MonoBehaviour
         float fracJourney = distCovered / journeyLength;
 
         transform.position = Vector2.Lerp(startMarker.position, endMarker.position, Mathf.PingPong(fracJourney, 1));
-        transform.Rotate(new Vector3(0, 0, 45) * Time.deltaTime);
+        //transform.Rotate(new Vector3(0, 0, 45) * Time.deltaTime);
     }
 }

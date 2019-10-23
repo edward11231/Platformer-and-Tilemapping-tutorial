@@ -15,12 +15,17 @@ public class PlayerScript : MonoBehaviour
     public Text win;
     public Text lives;
 
+    Animator animator;
+
     private int scoreValue = 0;
+    private bool facingRight = true;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rd2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         SetScoreText();
         win.text = "";
         lives.text = "Lives: " + playerLives.ToString();
@@ -33,7 +38,34 @@ public class PlayerScript : MonoBehaviour
         float vertMovement = Input.GetAxis("Vertical");
         rd2d.AddForce(new Vector2(hozMovement, vertMovement));
 
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            if (facingRight == false && hozMovement > 0)
+            {
+                Flip();                  
+            }
+            else if (facingRight == true && hozMovement < 0)
+            {
+                Flip();
+            }
+            animator.SetInteger("Move", 1);
+        }
 
+        else if(Input.GetKeyDown(KeyCode.D))
+        {
+            if (facingRight == false && hozMovement > 0)
+            {
+                Flip();
+            }
+
+            else if (facingRight == true && hozMovement < 0)
+            {
+                Flip();
+            }
+                animator.SetInteger("Move", 1);
+        }       
+        else if(hozMovement == 0)
+            animator.SetInteger("Move", 0);
     }
     private void Update()
     {
@@ -68,15 +100,16 @@ public class PlayerScript : MonoBehaviour
             {
                 transform.position = new Vector2(80, 1);
                 playerLives = 3;
-                SetScoreText();
+                SetLivesText();
             }
                 
         }
 
-        if(collision.collider.tag == "Enemy")
+        if (collision.collider.tag == "Enemy")
         {
+            Debug.Log("hello dude");
             playerLives -= 1;
-            SetScoreText();
+            SetLivesText();
             Destroy(collision.collider.gameObject);
         }
 
@@ -88,8 +121,12 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
+                animator.SetBool("isGrounded", false);
                 rd2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                //rd2d.velocity = Vector2.up * jumpForce;
             }
+            else
+                animator.SetBool("isGrounded", true);
         }
     }
 
@@ -100,5 +137,13 @@ public class PlayerScript : MonoBehaviour
     void SetLivesText()
     {
         lives.text = "Lives: " + playerLives.ToString();
+    }
+
+    void Flip()
+    {
+        facingRight = !facingRight;
+        Vector2 Scaler = transform.localScale;
+        Scaler.x = Scaler.x * -1;
+        transform.localScale = Scaler;
     }
 }
