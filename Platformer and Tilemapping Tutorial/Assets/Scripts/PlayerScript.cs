@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D rd2d;
+    public AudioSource audioSource;
+    public AudioClip clip;
+    public AudioClip clip2;
 
     public float speed;
     public float jumpForce;
@@ -19,6 +22,8 @@ public class PlayerScript : MonoBehaviour
 
     private int scoreValue = 0;
     private bool facingRight = true;
+    private bool isWin = false;
+    private bool isMute = false;
 
 
     // Start is called before the first frame update
@@ -26,6 +31,8 @@ public class PlayerScript : MonoBehaviour
     {
         rd2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource.clip = clip2;
+        audioSource.Play();
         SetScoreText();
         win.text = "";
         lives.text = "Lives: " + playerLives.ToString();
@@ -71,11 +78,19 @@ public class PlayerScript : MonoBehaviour
     {
         if(scoreValue == 8)
         {
+            if(isWin == false)
+            {
+                audioSource.Stop();
+                audioSource.clip = clip;
+                audioSource.Play();
+                isWin = true;
+            }
+            
             win.text = "You Win! Game created by: Edward Tavarez";
-            this.gameObject.SetActive(false);
+            //this.gameObject.SetActive(false);
         }
 
-        if(playerLives == 0)
+        if(playerLives == 0 && scoreValue < 8)
         {
             win.text = "You Lose. Game Over";
             this.gameObject.SetActive(false);
@@ -85,6 +100,22 @@ public class PlayerScript : MonoBehaviour
         {
             Application.Quit();
             Debug.Log("Game Quit");
+        }
+
+        if(Input.GetKey(KeyCode.M))
+        {
+            if (isMute == false)
+            {
+                audioSource.Stop();
+                isMute = true;
+            }
+            else
+            {
+                audioSource.Play();
+                isMute = false;
+            }
+                
+
         }
     }
 
